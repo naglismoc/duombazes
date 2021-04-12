@@ -21,9 +21,9 @@ include ("../../Controllers/VegetableController.php");
 <body>
 <?php include("../header.php") ?>
     <form action="" method="post">
-        <input type="text" name="name" value=<?=$vegetable['name']?>>
-        <input type="text" name="quantity" value=<?=$vegetable['quantity']?> >
-        <input type="text" name="date" value=<?=$vegetable['date']?>>
+        <input type="text" name="name" value=<?=$vegetable->getName()?>>
+        <input type="text" name="quantity" value=<?=$vegetable->getQuantity()?> >
+        <input type="text" name="date" value=<?=$vegetable->getDate()?>>
         <input type="hidden" name="id" value="<?=$_GET['id']?>">
         <button type="submit">išsaugoti</button>
     </form> 

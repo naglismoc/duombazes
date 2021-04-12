@@ -1,68 +1,42 @@
 <?php
-function connect()
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "kioskas";
+include("../../models/Vegetable.php");
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    if($conn->connect_error){
-        echo " connection failed";
-        die;
-    }
-    
-    return $conn;
-}
-
- function getAll()
- {
-    $sql = "SELECT * from `vegetables`";
-    return connect()->query($sql);
+ function getAll() {
+    return Vegetable::findAll();
  }
 
 function getById($id){
-    $sql = "SELECT * from `vegetables` where id =".$id;
-
-    $result =  connect()->query($sql);
-    $vegetable = '';
-    while ($row = $result->fetch_assoc()) {
-        $vegetable = $row;
-    }
-    return $vegetable;
+    return Vegetable::getById($id);
 }
 function update($request){
-    $id = $request['id'];
-    $name = $request['name'];
-    $quantity = $request['quantity'];
-    $date = $request['date'];
+    $vegetable = new Vegetable();
+    $vegetable->setId($request['id']);
+    $vegetable->setName($request['name']);
+    $vegetable->setQuantity($request['quantity']);
+    $vegetable->setDate($request['date']);
+    $vegetable->save();
 
-
-    $sql = "UPDATE `vegetables` 
-        SET `name` = '".$name."', `quantity` = '".$quantity."', `date` = '".$date."' 
-        WHERE `vegetables`.`id` = ".$id.";";
-    connect()->query($sql);
     header('location:./home.php');
     die;
 }
 
-function store($request){
-    $name = $request['name'];
-    $quantity = $request['quantity'];
-    $date = $request['date'];
 
-    $sql = "INSERT 
-        INTO `vegetables` (`id`, `name`, `quantity`, `date`) 
-        VALUES (NULL, '".$name."', '".$quantity."', '".$date."');";
-    connect()->query($sql);
+function store($request){
+    $vegetable = new Vegetable();
+    $vegetable->setName($request['name']);
+    $vegetable->setQuantity($request['quantity']);
+    $vegetable->setDate($request['date']);
+    $vegetable->save();
+
     header('location:./home.php');
     die;
 }
     function destroy($request)
     {
-        $sql = "DELETE FROM `vegetables` WHERE `vegetables`.`id` =".$request['id'];
-        connect()->query($sql);
+       $vegetable = Vegetable::getById($request['id']);
+       $vegetable->delete();
+
         header('location:./home.php');
         die;
     }

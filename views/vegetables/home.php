@@ -1,7 +1,7 @@
 <?php
 include ("../../Controllers/VegetableController.php");
 
-  if($_SERVER['REQUEST_METHOD']=='POST'){
+  if($_SERVER['REQUEST_METHOD']=='POST'){ 
     destroy($_POST);
   }
 
@@ -32,12 +32,14 @@ tr:nth-child(even) {
 </head>
 <body>
 <?php include("../header.php") ?>
+
 <a href="./create.php">sukurti</a>
 <h2>Daržovės</h2>
+
 <div id="sum"></div>
 <table>
   <tr>
-    <th>id</th>
+  <th>id</th>
     <th>name</th>
     <th>quantity</th>
     <th>expiration date</th>
